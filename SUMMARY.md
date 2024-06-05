@@ -4,5 +4,5 @@
 
 ## API 명세서
 
-* [인증 API](api/api.md)
-* [게시글 API](api/api-1.md)
+* [인증 API](docs/api/api.md)
+* [게시글 API](docs/api/api-1.md)
