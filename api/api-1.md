@@ -1,6 +1,6 @@
 # 게시글 API
 
-## 게시글글 목록 조회
+## 게시글 목록 조회
 
 <mark style="color:orange;">`GET`</mark> `/api/post`
 
