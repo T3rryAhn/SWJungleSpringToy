@@ -30,6 +30,10 @@ public class Post {
     private String author;
 
     @NotBlank
+    @Column(nullable = false)
+    private String password;
+
+    @NotBlank
     @Column(nullable = false, updatable = false)
     private LocalDateTime createAt;
 
@@ -41,10 +45,11 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String content, String author) {
+    public Post(String title, String content, String author, String password) {
         this.title = title;
         this.content = content;
         this.author = author;
+        this.password = password;
     }
 
     // 엔티티가 저장되기 전에 실행되는 메서드
