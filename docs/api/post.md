@@ -10,9 +10,9 @@
 * 작성 날짜 기준 내림차순 정렬
 
 #### Request Header
-
-#### Request
-
+없음
+#### Request Body
+없음
 
 
 **Response**
@@ -69,8 +69,8 @@
 #### Description
 
 #### Request Header
-
-#### Request
+없음
+#### Request Body
 
 | Name       | Type   | Description |
 | ---------- | ------ | ----------- |
@@ -78,6 +78,15 @@
 | `content`  | String | 게시글 내용      |
 | `username` | String | 게시글 작성자     |
 | `password` | String | 게시글 비밀번호    |
+
+```json
+{
+    "title": "게시글 제목",
+    "content": "게시글 내용",
+    "author": "bin1234",
+    "password": "bin1234"
+}
+```
 
 **Response**
 
@@ -103,10 +112,13 @@
 <mark style="color:orange;">`GET`</mark> `/api/post/{id}`
 
 #### Description
+- url 에 주어진 `id` 값으로 게시글을 조회함.
 
 #### Request Header
+없음
 
-Request
+#### Request Body
+없음
 
 **Response**
 
@@ -132,16 +144,27 @@ Request
 <mark style="color:orange;">`PUT`</mark> `/api/post/{id}`
 
 #### Description
+- url에 주어진 `id` 값으로 `post`를 찾고 request body 에 담긴 `password` 값과 일치하는지 확인하고 수정사항을 반영함.
+- 자동으로 수정 시간이 업데이트 됨.
 
 #### Request Header
+없음
 
-#### Request
+#### Request Body
 
-| Name      | Type   | Description   |
-| --------- | ------ | ------------- |
-| `title`   | String | 업데이트할  게시글 제목 |
-| `content` | String | 업데이트할게시글 내용   |
+| Name       | Type   | Description   |
+|------------| ------ |---------------|
+| `title`    | String | 업데이트할  게시글 제목 |
+| `content`  | String | 업데이트할게시글 내용   |
+| `password` | String | 게시글 비밀 번호     |
 
+```json
+{
+    "title": "교체할 제목",
+    "content": "교체할 내용",
+    "password": "bin1234"
+}
+```
 **Response**
 
 {% tabs %}
@@ -166,10 +189,21 @@ Request
 <mark style="color:red;">`DELETE`</mark> `/api/post/{id}`
 
 #### Description
+- url에 주어진 `id` 값으로 post를 찾고 request body 에 담긴 `password`로 권한 검사후 삭제 진행.
 
 #### Request Header
+없음
 
-#### Request
+#### Request Body
+| Name | Type | Description  |
+|----|-----|--------------|
+|`password`|String|게시글 비밀번호|
+
+```json
+{
+    "password": "bin1234"
+}
+```
 
 **Response**
 

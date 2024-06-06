@@ -38,3 +38,6 @@ out/
 
 ### db ###
 /db/
+/docker-compose.yml
+/gradlew
+/gradlew.bat
