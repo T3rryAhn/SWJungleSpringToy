@@ -33,11 +33,9 @@ public class Post {
     @Column(nullable = false)
     private String password;
 
-    @NotBlank
     @Column(nullable = false, updatable = false)
     private LocalDateTime createAt;
 
-    @NotBlank
     @Column(nullable = false)
     private LocalDateTime modifiedAt;
 
