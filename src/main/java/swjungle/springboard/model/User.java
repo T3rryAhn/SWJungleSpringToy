@@ -16,15 +16,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(min = 4, max = 10)
-    @Pattern(regexp = "^[a-z0-9]+$", message = "Username must be lowercase alphanumeric")
     @Column(unique = true, nullable = false)
     private String userName;
 
-    @NotBlank
-    @Size(min = 8, max = 15)
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Password must be alphanumeric")
     @Column(nullable = false)
     private String password;
 
