@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public class PostRequestDto {
 
-    @NotBlank
+    @NotBlank(message = "title is mandatory")
     private String title;
 
     @NotBlank
