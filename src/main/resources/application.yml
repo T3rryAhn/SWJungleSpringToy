@@ -6,13 +6,13 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-        jdbc:
-          batch_size: 50
         format_sql: true
         show_sql: true
-        order_updates: true
   datasource:
     url: jdbc:mysql://localhost:22306/jungleDB
     username: root
-    password: 0000
+    password: 12345678
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+jwt:
+  secret: 7ZWt7ZW0OTntmZTsnbTtjIXtlZzqta3snYTrhIjrqLjshLjqs4TroZzrgpjslYTqsIDsnpDtm4zrpa3tlZzqsJzrsJzsnpDrpbzrp4zrk6TslrTqsIDsnpA=
