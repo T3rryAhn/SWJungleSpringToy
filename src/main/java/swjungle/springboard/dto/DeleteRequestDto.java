@@ -1,4 +1,6 @@
 package swjungle.springboard.dto;
 
-public record DeleteRequestDto(String password) {
+import jakarta.validation.constraints.NotBlank;
+
+public record DeleteRequestDto(@NotBlank String password) {
 }
