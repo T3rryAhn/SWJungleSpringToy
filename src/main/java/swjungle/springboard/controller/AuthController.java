@@ -14,6 +14,8 @@ import swjungle.springboard.dto.SignupRequestDto;
 import swjungle.springboard.dto.SignupResponseDto;
 import swjungle.springboard.service.AuthService;
 
+import javax.security.sasl.AuthenticationException;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -28,13 +30,13 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<SignupResponseDto> register(@RequestBody @Valid SignupRequestDto signupRequestDto) {
         SignupResponseDto signupResponseDto = authService.register(signupRequestDto);
-        return new ResponseEntity<SignupResponseDto>(signupResponseDto, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(signupResponseDto);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @Valid LoginRequestDto loginRequestDto) {
+    public ResponseEntity<String> login(@RequestBody @Valid LoginRequestDto loginRequestDto) throws AuthenticationException {
         LoginResponseDto loginResponseDto = authService.login(loginRequestDto);
-        return new ResponseEntity<String>(loginResponseDto.message(), loginResponseDto.headers(), HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(loginResponseDto.toString());
     }
 
 }

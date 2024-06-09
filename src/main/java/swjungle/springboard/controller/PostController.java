@@ -1,6 +1,8 @@
 package swjungle.springboard.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import swjungle.springboard.dto.DeleteRequestDto;
@@ -24,15 +26,15 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostResponseDto> createPost(@RequestBody PostRequestDto postRequestDto) {
+    public ResponseEntity<PostResponseDto> createPost(@RequestBody @Valid PostRequestDto postRequestDto) {
         Post post = new Post(postRequestDto.getTitle(), postRequestDto.getContent(), postRequestDto.getAuthor(), postRequestDto.getPassword());
         PostResponseDto createdPost = postService.createPost(post);
-        return ResponseEntity.status(201).body(createdPost);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdPost);
     }
 
     @GetMapping
     public ResponseEntity<List<PostResponseDto>> getAllPosts() {
-        return ResponseEntity.ok(postService.getAllPosts());
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPosts());
     }
 
     @GetMapping("/{id}")
@@ -43,13 +45,13 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PostResponseDto> updatePost(@PathVariable("id") Long id, @RequestBody PostRequestDto postRequestDto) {
+    public ResponseEntity<PostResponseDto> updatePost(@PathVariable("id") Long id, @RequestBody @Valid PostRequestDto postRequestDto) {
         Post updatedPost = new Post(postRequestDto.getTitle(), postRequestDto.getContent(), postRequestDto.getAuthor(), postRequestDto.getPassword());
-        return ResponseEntity.ok(postService.updatePost(id, updatedPost, postRequestDto.getPassword()));
+        return ResponseEntity.status(HttpStatus.OK).body(postService.updatePost(id, updatedPost, postRequestDto.getPassword()));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<DeleteResponseDto> deletePost(@PathVariable("id") Long id, @RequestBody DeleteRequestDto deleteRequestDto) {
-        return ResponseEntity.ok(postService.deletePost(id, deleteRequestDto.password()));
+        return ResponseEntity.status(HttpStatus.OK).body(postService.deletePost(id, deleteRequestDto.password()));
     }
 }
