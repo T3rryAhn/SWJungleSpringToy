@@ -156,6 +156,7 @@
 |------------| ------ |---------------|
 | `title`    | String | 업데이트할  게시글 제목 |
 | `content`  | String | 업데이트할게시글 내용   |
+ | `author`  | String | 게시글 주인 |
 | `password` | String | 게시글 비밀 번호     |
 
 ```json
