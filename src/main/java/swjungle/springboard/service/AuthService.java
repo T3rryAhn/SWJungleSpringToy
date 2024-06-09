@@ -1,6 +1,9 @@
 package swjungle.springboard.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import swjungle.springboard.dto.LoginRequestDto;
@@ -9,6 +12,7 @@ import swjungle.springboard.dto.SignupRequestDto;
 import swjungle.springboard.dto.SignupResponseDto;
 import swjungle.springboard.model.User;
 import swjungle.springboard.repository.UserRepository;
+import swjungle.springboard.util.JwtTokenUtil;
 
 import java.util.Optional;
 
@@ -17,11 +21,13 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenUtil jwtTokenUtil) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     public SignupResponseDto register(SignupRequestDto signupRequestDto) {
@@ -55,7 +61,10 @@ public class AuthService {
             if (!passwordEncoder.matches(password, user.getPassword())) {
                 throw new IllegalArgumentException("Wrong password");
             }
-            return new LoginResponseDto("User logged in successfully");
+            String token = jwtTokenUtil.generateToken(userName);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", "Bearer " + token);
+            return new LoginResponseDto(headers, "User logged in successfully");
         }
         return new LoginResponseDto("User not found");
     }

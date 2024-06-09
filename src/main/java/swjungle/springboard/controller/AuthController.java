@@ -2,6 +2,7 @@ package swjungle.springboard.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,13 +28,13 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<SignupResponseDto> register(@RequestBody @Valid SignupRequestDto signupRequestDto) {
         SignupResponseDto signupResponseDto = authService.register(signupRequestDto);
-        return ResponseEntity.ok(signupResponseDto);
+        return new ResponseEntity<SignupResponseDto>(signupResponseDto, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid LoginRequestDto loginRequestDto) {
+    public ResponseEntity<String> login(@RequestBody @Valid LoginRequestDto loginRequestDto) {
         LoginResponseDto loginResponseDto = authService.login(loginRequestDto);
-        return ResponseEntity.ok(loginResponseDto);
+        return new ResponseEntity<String>(loginResponseDto.message(), loginResponseDto.headers(), HttpStatus.OK);
     }
 
 }
