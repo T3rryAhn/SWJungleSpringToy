@@ -163,6 +163,7 @@
 {
     "title": "교체할 제목",
     "content": "교체할 내용",
+    "author": "bin1234",
     "password": "bin1234"
 }
 ```
