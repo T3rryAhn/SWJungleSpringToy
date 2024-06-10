@@ -1,4 +1,4 @@
-package swjungle.springboard.dto;
+package swjungle.springboard.dto.post;
 
 public record DeleteResponseDto(String msg) {
 }
