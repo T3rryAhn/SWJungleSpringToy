@@ -1,7 +1,4 @@
-package swjungle.springboard.dto;
-
-import lombok.Getter;
-import lombok.Setter;
+package swjungle.springboard.dto.post;
 
 import java.time.LocalDateTime;
 

@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import swjungle.springboard.dto.LoginRequestDto;
-import swjungle.springboard.dto.LoginResponseDto;
-import swjungle.springboard.dto.SignupRequestDto;
-import swjungle.springboard.dto.SignupResponseDto;
+import swjungle.springboard.dto.auth.LoginRequestDto;
+import swjungle.springboard.dto.auth.LoginResponseDto;
+import swjungle.springboard.dto.auth.SignupRequestDto;
+import swjungle.springboard.dto.auth.SignupResponseDto;
 import swjungle.springboard.service.AuthService;
 
 import javax.security.sasl.AuthenticationException;

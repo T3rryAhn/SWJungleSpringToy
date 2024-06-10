@@ -1,6 +1,5 @@
 package swjungle.springboard.model;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -11,11 +10,15 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Entity
-@Table(name = "posts")
-public class Post {
+@Table(name = "comments")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -23,26 +26,19 @@ public class Post {
 
     @NotBlank
     @Column(nullable = false)
-    private String title;
-
-    @NotBlank
-    @Column(nullable = false)
     private String content;
 
-
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false)
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
     private LocalDateTime modifiedAt;
 
-    // 기본 생성자
-    public Post() {
-    }
+    public Comment(){}
 
-    public Post(User user, String title, String content) {
+    public Comment(Post post, User user, String content) {
+        this.post = post;
         this.user = user;
-        this.title = title;
         this.content = content;
     }
 

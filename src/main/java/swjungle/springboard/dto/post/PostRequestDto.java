@@ -1,4 +1,4 @@
-package swjungle.springboard.dto;
+package swjungle.springboard.dto.post;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -12,10 +12,4 @@ public class PostRequestDto {
 
     @NotBlank
     private String content;
-
-    @NotBlank
-    private String author;
-
-    @NotBlank
-    private String password;
 }

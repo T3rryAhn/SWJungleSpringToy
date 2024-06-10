@@ -67,24 +67,22 @@
 <mark style="color:green;">`POST`</mark> `/api/post`
 
 #### Description
-
+- request header 에 담긴 jwt 토큰으로 username 과 role을 확인함.
 #### Request Header
-없음
+| Name | Description     |
+|------|-----------------|
+| `Authorization` | `Bearer <token>` |
 #### Request Body
 
 | Name       | Type   | Description |
 | ---------- | ------ | ----------- |
 | `title`    | String | 게시글 제목      |
 | `content`  | String | 게시글 내용      |
-| `username` | String | 게시글 작성자     |
-| `password` | String | 게시글 비밀번호    |
 
 ```json
 {
     "title": "게시글 제목",
-    "content": "게시글 내용",
-    "author": "bin1234",
-    "password": "bin1234"
+    "content": "게시글 내용"
 }
 ```
 
@@ -144,11 +142,14 @@
 <mark style="color:orange;">`PUT`</mark> `/api/post/{id}`
 
 #### Description
-- url에 주어진 `id` 값으로 `post`를 찾고 request body 에 담긴 `password` 값과 일치하는지 확인하고 수정사항을 반영함.
+- url에 주어진 `id` 값으로 `post`를 찾고 request header 에 담긴 jwt 토큰으로 username 과 role을 확인함.
+- admin 계정이거나 본인이 작성한 글이면 수정됨.
 - 자동으로 수정 시간이 업데이트 됨.
 
 #### Request Header
-없음
+| Name | Description     |
+|------|-----------------|
+| `Authorization` | `Bearer <token>` |
 
 #### Request Body
 
@@ -156,8 +157,6 @@
 |------------| ------ |---------------|
 | `title`    | String | 업데이트할  게시글 제목 |
 | `content`  | String | 업데이트할게시글 내용   |
- | `author`  | String | 게시글 주인 |
-| `password` | String | 게시글 비밀 번호     |
 
 ```json
 {
@@ -191,10 +190,12 @@
 <mark style="color:red;">`DELETE`</mark> `/api/post/{id}`
 
 #### Description
-- url에 주어진 `id` 값으로 post를 찾고 request body 에 담긴 `password`로 권한 검사후 삭제 진행.
-
+- url에 주어진 `id` 값으로 `post`를 찾고 request header 에 담긴 jwt 토큰으로 username 과 role을 확인함.
+- admin 계정이거나 본인이 작성한 글이면 삭제됨.
 #### Request Header
-없음
+| Name | Description     |
+|------|-----------------|
+| `Authorization` | `Bearer <token>` |
 
 #### Request Body
 | Name | Type | Description  |

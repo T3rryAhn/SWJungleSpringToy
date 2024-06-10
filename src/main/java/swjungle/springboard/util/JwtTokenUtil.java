@@ -7,6 +7,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import swjungle.springboard.config.JwtProperties;
+import swjungle.springboard.model.Role;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -23,22 +24,40 @@ public class JwtTokenUtil {
         this.secretKey = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
     }
 
-    public String generateToken(String userName) {
+    public String generateToken(String userName, Role role) {
+        Claims claims = Jwts.claims().setSubject(userName);
+        claims.put("role", role);
         return Jwts.builder()
-                .setSubject(userName)
+                .setClaims(claims)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getTOKEN_EXPIRE_TIME()))
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public String getUsernameFromToken(String token) {
-        Claims claims = Jwts.parserBuilder()
+    public Claims getClaimsFromToken(String token) {
+        return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        return claims.getSubject();
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            getClaimsFromToken(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public String getUserNameFromToken(String token) {
+        return getClaimsFromToken(token).getSubject();
+    }
+
+    public String getRoleFromToken(String token) {
+        return getClaimsFromToken(token).get("role", String.class);
     }
 }
 

@@ -1,9 +1,7 @@
 package swjungle.springboard.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,13 +20,18 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
     // 기본 생성자
     public User() {
     }
 
     // 매개변수 있는 생성자
-    public User(String userName, String password) {
+    public User(String userName, String password, Role role) {
         this.userName = userName;
         this.password = password;
+        this.role = role;
     }
 }
