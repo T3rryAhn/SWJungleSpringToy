@@ -1,4 +1,4 @@
-package swjungle.springboard.dto;
+package swjungle.springboard.dto.auth;
 
 import org.springframework.http.HttpHeaders;
 
