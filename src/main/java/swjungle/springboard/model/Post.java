@@ -17,6 +17,10 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", nullable = false)
+    private User user;
+
     @NotBlank
     @Column(nullable = false)
     private String title;
@@ -25,16 +29,9 @@ public class Post {
     @Column(nullable = false)
     private String content;
 
-    @NotBlank
-    @Column(nullable = false)
-    private String author;
-
-    @NotBlank
-    @Column(nullable = false)
-    private String password;
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 
     @Column(nullable = false)
     private LocalDateTime modifiedAt;
@@ -43,17 +40,16 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String content, String author, String password) {
+    public Post(User user, String title, String content) {
+        this.user = user;
         this.title = title;
         this.content = content;
-        this.author = author;
-        this.password = password;
     }
 
     // 엔티티가 저장되기 전에 실행되는 메서드
     @PrePersist
     protected void onCreate() {
-        this.createAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
         this.modifiedAt = LocalDateTime.now();
     }
 

@@ -23,8 +23,8 @@ public class PostService {
                 savedPost.getId(),
                 savedPost.getTitle(),
                 savedPost.getContent(),
-                savedPost.getAuthor(),
-                savedPost.getCreateAt(),
+                savedPost.getUserId(),
+                savedPost.getCreatedAt(),
                 savedPost.getModifiedAt()
         );
     }
@@ -35,8 +35,8 @@ public class PostService {
                         post.getId(),
                         post.getTitle(),
                         post.getContent(),
-                        post.getAuthor(),
-                        post.getCreateAt(),
+                        post.getUserId(),
+                        post.getCreatedAt(),
                         post.getModifiedAt()
                 )).collect(Collectors.toList());
     }
@@ -47,8 +47,8 @@ public class PostService {
                         post.getId(),
                         post.getTitle(),
                         post.getContent(),
-                        post.getAuthor(),
-                        post.getCreateAt(),
+                        post.getUserId(),
+                        post.getCreatedAt(),
                         post.getModifiedAt()
                 ));
     }
@@ -63,8 +63,8 @@ public class PostService {
                         savedPost.getId(),
                         savedPost.getTitle(),
                         savedPost.getContent(),
-                        savedPost.getAuthor(),
-                        savedPost.getCreateAt(),
+                        savedPost.getUserId(),
+                        savedPost.getCreatedAt(),
                         savedPost.getModifiedAt()
                 );
             } else {
