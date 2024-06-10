@@ -5,9 +5,9 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import swjungle.springboard.config.JwtProperties;
+import swjungle.springboard.model.Role;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -24,7 +24,7 @@ public class JwtTokenUtil {
         this.secretKey = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
     }
 
-    public String generateToken(String userName, String role) {
+    public String generateToken(String userName, Role role) {
         Claims claims = Jwts.claims().setSubject(userName);
         claims.put("role", role);
         return Jwts.builder()
