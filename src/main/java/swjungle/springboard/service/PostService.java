@@ -2,9 +2,11 @@ package swjungle.springboard.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import swjungle.springboard.dto.DeleteResponseDto;
-import swjungle.springboard.dto.PostResponseDto;
+import swjungle.springboard.dto.post.DeleteResponseDto;
+import swjungle.springboard.dto.post.PostRequestDto;
+import swjungle.springboard.dto.post.PostResponseDto;
 import swjungle.springboard.model.Post;
+import swjungle.springboard.model.Role;
 import swjungle.springboard.repository.PostRepository;
 
 import java.util.List;
@@ -23,19 +25,19 @@ public class PostService {
                 savedPost.getId(),
                 savedPost.getTitle(),
                 savedPost.getContent(),
-                savedPost.getUserId(),
+                savedPost.getUser().getUserName(),
                 savedPost.getCreatedAt(),
                 savedPost.getModifiedAt()
         );
     }
 
     public List<PostResponseDto> getAllPosts() {
-        return postRepository.findAll().stream()
+        return postRepository.findAllByOrderByCreatedAtDesc().stream()
                 .map(post -> new PostResponseDto(
                         post.getId(),
                         post.getTitle(),
                         post.getContent(),
-                        post.getUserId(),
+                        post.getUser().getUserName(),
                         post.getCreatedAt(),
                         post.getModifiedAt()
                 )).collect(Collectors.toList());
@@ -47,15 +49,15 @@ public class PostService {
                         post.getId(),
                         post.getTitle(),
                         post.getContent(),
-                        post.getUserId(),
+                        post.getUser().getUserName(),
                         post.getCreatedAt(),
                         post.getModifiedAt()
                 ));
     }
 
-    public PostResponseDto updatePost(Long id, Post updatedPost, String password) {
+    public PostResponseDto updatePost(Long id, PostRequestDto updatedPost, String userName, Role role ) {
         return postRepository.findById(id).map(post -> {
-            if (post.getPassword().equals(password)) {
+            if (role.equals(Role.ADMIN) || userName.equals(post.getUser().getUserName())) {
                 post.setTitle(updatedPost.getTitle());
                 post.setContent(updatedPost.getContent());
                 Post savedPost = postRepository.save(post);
@@ -63,7 +65,7 @@ public class PostService {
                         savedPost.getId(),
                         savedPost.getTitle(),
                         savedPost.getContent(),
-                        savedPost.getUserId(),
+                        savedPost.getUser().getUserName(),
                         savedPost.getCreatedAt(),
                         savedPost.getModifiedAt()
                 );
@@ -73,10 +75,10 @@ public class PostService {
         }).orElseThrow(() -> new RuntimeException("Post not found"));
     }
 
-    public DeleteResponseDto deletePost(Long id, String password) {
+    public DeleteResponseDto deletePost(Long id, String userName, Role role) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
-        if (post.getPassword().equals(password)) {
+        if (role.equals(Role.ADMIN) || userName.equals(post.getUser().getUserName())) {
             postRepository.deleteById(id);
             return new DeleteResponseDto("Post deleted successfully");
         } else {
