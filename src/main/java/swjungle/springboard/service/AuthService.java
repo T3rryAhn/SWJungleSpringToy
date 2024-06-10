@@ -6,10 +6,10 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import swjungle.springboard.dto.LoginRequestDto;
-import swjungle.springboard.dto.LoginResponseDto;
-import swjungle.springboard.dto.SignupRequestDto;
-import swjungle.springboard.dto.SignupResponseDto;
+import swjungle.springboard.dto.auth.LoginRequestDto;
+import swjungle.springboard.dto.auth.LoginResponseDto;
+import swjungle.springboard.dto.auth.SignupRequestDto;
+import swjungle.springboard.dto.auth.SignupResponseDto;
 import swjungle.springboard.model.Role;
 import swjungle.springboard.model.User;
 import swjungle.springboard.repository.UserRepository;
