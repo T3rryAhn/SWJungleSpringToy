@@ -59,7 +59,6 @@ public class AuthService {
         if (found.isPresent()) {
             User user = found.get();
             if (!passwordEncoder.matches(password, user.getPassword())) {
-//                throw new AuthenticationException("Wrong password");
                 throw new AuthenticationServiceException("Wrong password");
             }
             String token = jwtTokenUtil.generateToken(userName);
