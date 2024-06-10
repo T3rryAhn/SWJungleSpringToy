@@ -40,7 +40,7 @@ DB에 중복된 `username` 없다면 회원을 저장하고 client에게 가입�
 ![erd.png](docs/imgs/erd.png)
 
 # API 명세서
-https://t3rrys-spring-crud-toy-project.gitbook.io/swjunglespringtoy
+[https://t3rrys-spring-crud-toy-project.gitbook.io/swjunglespringtoy](https://t3rrys-spring-crud-toy-project.gitbook.io/swjunglespringtoy-1.0/)
 
 ***
 # 수정, 삭제 API의 request를 어떤 방식으로 사용하셨나요? (param, query, body)
